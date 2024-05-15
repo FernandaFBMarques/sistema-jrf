@@ -1,16 +1,23 @@
-import './estilo.css'
-import logo from '../../imagens/logo.svg'
+import logo from '../../imagens/logo.svg';
+import styled from 'styled-components';
+
+const LogoContainer = styled.div`
+    display: flex;
+    font-size: 30px;
+`
+const LogoImage = styled.img`
+    margin-right: 10px;
+`
 
 function Logo() {
     return(
-        <div className='Logo'>
-            <img 
+        <LogoContainer>
+            <LogoImage 
                 src={logo} 
                 alt='logo da alura books em formato de triângulo na cor laranja e arestas achatadas' 
-                className='logo-img'
-                ></img>
-            <p><strong>JRF</strong> Gestora de Marcas</p>
-      </div>
+            />
+            <p>Gestora de Marcas</p>
+      </LogoContainer>
     )
 }
 
