@@ -14,7 +14,7 @@ function Logo() {
         <LogoContainer>
             <LogoImage 
                 src={logo} 
-                alt='logo da alura books em formato de triângulo na cor laranja e arestas achatadas' 
+                alt='logo da empresa JRF como o anagrama homônimo em azul escuro' 
             />
             <p>Gestora de Marcas</p>
       </LogoContainer>

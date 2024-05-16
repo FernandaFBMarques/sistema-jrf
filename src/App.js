@@ -1,5 +1,6 @@
 import Header from './componentes/Header';
 import Pesquisa from './componentes/Pesquisa';
+import UltimosLancamentos from './componentes/UltimosLancamentos';
 import styled from 'styled-components';
 
 const AppContainer = styled.div`
@@ -9,14 +10,14 @@ const AppContainer = styled.div`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: hidden;
 `
 
 function App() {
   return (
     <AppContainer>
-      <Header/>
-      <Pesquisa/>
+      <Header />
+      <Pesquisa />
+      <UltimosLancamentos />
     </AppContainer>
   );
 }

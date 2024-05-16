@@ -7,7 +7,7 @@ const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002f52 35%, #326589 165%);
     color: #FFF;
     text-align: center;
-    padding: 85px;
+    padding: 85px 0;
     height: 270px;
     width: 100%;
 `
@@ -21,13 +21,13 @@ const Subtitulo = styled.h3`
     font-size: 16px;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
 `
 const Resultado = styled.div`
    display: flex;
    justify-content: center;
    align-items: center;
-   margin-bottom: 20px;
+   margin-bottom: 40px;
    cursor: pointer;
 
    p {

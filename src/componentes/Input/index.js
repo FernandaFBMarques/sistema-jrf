@@ -10,6 +10,7 @@ const Input = styled.input`
     color: #FFF;
     font-size: 16px;
     margin-bottom: 10px;
+    align-itens: center;
 
     &::placeholder{
         color: #FFF;
