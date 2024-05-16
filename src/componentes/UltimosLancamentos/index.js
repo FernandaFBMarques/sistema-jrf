@@ -13,7 +13,7 @@ const UltimosLancamentosContainer = styled.section`
 `
 
 const NovosLivrosContainer = styled.div`
-   margin-top: 50px;
+   margin-top: 40px;
    display: flex;
    width: 100%;
    justify-content: center;
