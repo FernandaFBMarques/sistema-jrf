@@ -1,3 +1,4 @@
+import Funcionarios from './componentes/Funcionarios';
 import Header from './componentes/Header';
 import Pesquisa from './componentes/Pesquisa';
 import UltimosLancamentos from './componentes/UltimosLancamentos';
@@ -18,6 +19,7 @@ function App() {
       <Header />
       <Pesquisa />
       <UltimosLancamentos />
+      <Funcionarios/>
     </AppContainer>
   );
 }

@@ -23,6 +23,7 @@ const NovosLivrosContainer = styled.div`
     width: 400px;
    }
 `
+const produtoSelecionado = produtos.find(produto => produto.id === 1);
 
 function UltimosLancamentos() {
     return(
@@ -39,8 +40,9 @@ function UltimosLancamentos() {
                 ))} 
             </NovosLivrosContainer> 
             <CardContas
+            
                 titulo="Talvez você se interesse por"
-                subtitulo="Corre 2"
+                subtitulo= {produtoSelecionado.nome}
                 descricao="Um dos melhores tênis de corrida do mercado"
                 img={imagemTenis}
             />
