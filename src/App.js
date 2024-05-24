@@ -11,6 +11,9 @@ import Home from './pages/Home';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 
+//Importar componentes
+import PageLayout from './componentes/PageGeneral/PageLayout';
+
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -26,9 +29,9 @@ function App() {
       <AppContainer>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/page1" element={<Page1 />} />
-          <Route path="/page2" element={<Page2 />} />
+          <Route path="/" element={<PageLayout><Home /></PageLayout>} />
+          <Route path="/page1" element={<PageLayout><Page1 /></PageLayout>} />
+          <Route path="/page2" element={<PageLayout><Page2 /></PageLayout>} />
           {/* Outras rotas podem ser adicionadas aqui */}
         </Routes>
       </AppContainer>

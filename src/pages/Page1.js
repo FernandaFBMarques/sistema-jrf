@@ -1,4 +1,14 @@
 import React, { useState } from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import InputField from '../componentes/Input/InputField.js';
+import MyButton from '../componentes/Mybutton.js';
+import 'primereact/resources/themes/saga-blue/theme.css'; // ou qualquer outro tema que você esteja usando
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
+import '../styles/customStyles.css';
+
 
 function Page1() {
   const [cpf, setCpf] = useState('');
@@ -19,7 +29,7 @@ function Page1() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        },
+      },
         body: JSON.stringify({ cpf, nome, telefone, email, rua, numero, cidade, bairro }),
       });
       if (!response.ok) {
@@ -91,36 +101,69 @@ function Page1() {
 
   return (
     <div>
-      <h1>Page 1</h1>
+      <h1>Funcionários</h1>
+      <h2>Editar ou Criar Funcionários</h2>
 
-      <div>
-        <input type="text" placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} />
-        <input type="text" placeholder="Nome" value={nome} onChange={(e) => setNome(e.target.value)} />
-        <input type="text" placeholder="Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} />
-        <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input type="text" placeholder="Rua" value={rua} onChange={(e) => setRua(e.target.value)} />
-        <input type="number" placeholder="Número" value={numero} onChange={(e) => setNumero(e.target.value)} />
-        <input type="text" placeholder="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} />
-        <input type="text" placeholder="Bairro" value={bairro} onChange={(e) => setBairro(e.target.value)} />
+      <div class="formgrid grid">
+        <div class="field col-15 md:col-3">
+          <InputField id="nome" label="Nome" value={nome} onChange={setNome} />
+        </div>
+        <div class="field col-15 md:col-3 ">
+          <InputField id="cpf" label="CPF" value={cpf} onChange={setCpf} />
+        </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="telefone" label="Telefone" value={telefone} onChange={setTelefone} />
+        </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="email" label="Email" value={email} onChange={setEmail} />
+        </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="rua" label="Rua" value={rua} onChange={setRua} />
+          </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="numero" label="Número" value={numero} onChange={setNumero} />
+          </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="cidade" label="Cidade" value={cidade} onChange={setCidade} />
+          </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="bairro" label="Bairro" value={bairro} onChange={setBairro} />
+        </div>
+      </div>
+  
+      <div className="button-container">
+        <MyButton label="Criar Novo Funcionario" onClick={handleCreateFuncionario} className="custom-button" />
+        <MyButton label="Atualizar Funcionario" onClick={handleUpdateFuncionario} className="custom-button" />
+        <MyButton label="Remover Funcionario" onClick={handleDeleteFuncionario} className="custom-button" />
       </div>
 
-      <button onClick={handleCreateFuncionario}>Create Funcionario</button>
-      <button onClick={handleGetFuncionarios}>Get Funcionarios</button>
-      <button onClick={handleUpdateFuncionario}>Update Funcionario</button>
-      <button onClick={handleDeleteFuncionario}>Delete Funcionario</button>
-
+      <h2>Deletar Funcionário</h2>
+      <div class="formgrid grid">
+        
+        <div class="field col-15 md:col-3 ">
+          <InputField id="cpf" label="CPF" value={cpf} onChange={setCpf} />
+        </div>
+      </div>
+      <MyButton label="Remover Funcionario" onClick={handleDeleteFuncionario} className="custom-button" />
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <h2>Lista de Funcionarios</h2>
-      <ul>
-        {funcionarios.map((func) => (
-          <li key={func.cpf}>
-            {func.cpf}: {func.nome}, {func.telefone}, {func.email}, {func.rua}, {func.numero}, {func.cidade}, {func.bairro}
-          </li>
-        ))}
-      </ul>
+      <h2>Lista de Funcionários</h2>
+      <MyButton label="Listar todos os Funcionários" onClick={handleGetFuncionarios} className="custom-button" />
+      <div>
+        <DataTable value={funcionarios} tableStyle={{ minWidth: '50rem' }}>
+          <Column field="cpf" header="CPF" />
+          <Column field="nome" header="Nome" />
+          <Column field="telefone" header="Telefone" />
+          <Column field="email" header="Email" />
+          <Column field="rua" header="Rua" />
+          <Column field="numero" header="Número" />
+          <Column field="cidade" header="Cidade" />
+          <Column field="bairro" header="Bairro" />
+        </DataTable>
+      </div>
     </div>
   );
 }
 
 export default Page1;
+
