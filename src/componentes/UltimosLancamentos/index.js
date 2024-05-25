@@ -1,53 +1,56 @@
-import { produtos } from './dadosUltimosLancamentos'
-import { Titulo } from '../Titulo'
-import CardContas from '../CardContas'
-import imagemTenis from '../../imagens/TenisOlympikusCorre3.png'
-import styled from 'styled-components'
+import { produtos } from './dadosUltimosLancamentos';
+import { Titulo } from '../Titulo';
+import CardContas from '../CardContas';
+import imagemTenis from '../../imagens/TenisOlympikusCorre3.png';
+import styled from 'styled-components';
 
 const UltimosLancamentosContainer = styled.section`
     background-color: #EBECEE;
-    padding-bottom: 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    margin-botton: 40px;
-`
+    margin-bottom: 50px; 
+    max-height: 900px; 
+    overflow-y: auto; 
+`;
 
-const NovosLivrosContainer = styled.div`
-   margin-top: 40px;
+const NovosProdutosContainer = styled.div`
+   margin-top: 50px; 
    display: flex;
-   width: 100%;
    justify-content: center;
+   gap: 10px; 
+   flex-wrap: wrap; 
    cursor: pointer;
 
    img{
-    width: 400px;
+    width: 150px; 
    }
-`
+`;
+
 const produtoSelecionado = produtos.find(produto => produto.id === 1);
 
 function UltimosLancamentos() {
-    return(
+    return (
         <UltimosLancamentosContainer>
             <Titulo 
                 cor="#EB9B00"
-                tamanhoFonte="36px"
+                tamanhoFonte="24px" 
             >
                 ÚLTIMOS LANÇAMENTOS
             </Titulo>
-            <NovosLivrosContainer>
-                {produtos.map( produto => (
-                    <img src = {produto.src}/>
+            <NovosProdutosContainer>
+                {produtos.map(produto => (
+                    <img key={produto.id} src={produto.src} alt={produto.alt} />
                 ))} 
-            </NovosLivrosContainer> 
+            </NovosProdutosContainer> 
             <CardContas
-            
                 titulo="Talvez você se interesse por"
-                subtitulo= {produtoSelecionado.nome}
+                subtitulo={produtoSelecionado.nome}
                 descricao="Um dos melhores tênis de corrida do mercado"
                 img={imagemTenis}
             />
         </UltimosLancamentosContainer>
-    )
+    );
 }
 
-export default UltimosLancamentos
+export default UltimosLancamentos;
