@@ -1,14 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Pesquisa from '../componentes/Pesquisa';
+import UltimosLancamentos from '../componentes/UltimosLancamentos';
+import styled from 'styled-components';
+
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 20px;
+  gap: 20px; 
+`;
 
 function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <Link to="/page1">Funcionários</Link>
-      <br />
-      <Link to="/page2">Produtos</Link>
-    </div>
+    <HomeContainer>
+      <Pesquisa />
+      <UltimosLancamentos />
+    </HomeContainer>
   );
 }
 

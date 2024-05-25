@@ -131,31 +131,31 @@ function Page1() {
 
       <div className="formgrid grid">
         <div className="field col-12 md:col-3">
-          <InputField id="nome" label="Nome" value={nome} onChange={setNome} />
+          <InputField id="nome" label="Nome" value={nome} onChange={setNome} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="cpf" label="CPF" value={cpf} onChange={setCpf} />
+          <InputField id="cpf" label="CPF" value={cpf} onChange={setCpf} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="telefone" label="Telefone" value={telefone} onChange={setTelefone} />
+          <InputField id="telefone" label="Telefone" value={telefone} onChange={setTelefone} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="email" label="Email" value={email} onChange={setEmail} />
+          <InputField id="email" label="Email" value={email} onChange={setEmail} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="rua" label="Rua" value={rua} onChange={setRua} />
+          <InputField id="rua" label="Rua" value={rua} onChange={setRua} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="numero" label="Número" value={numero} onChange={setNumero} />
+          <InputField id="numero" label="Número" value={numero} onChange={setNumero} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="cidade" label="Cidade" value={cidade} onChange={setCidade} />
+          <InputField id="cidade" label="Cidade" value={cidade} onChange={setCidade} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="bairro" label="Bairro" value={bairro} onChange={setBairro} />
+          <InputField id="bairro" label="Bairro" value={bairro} onChange={setBairro} showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="cargo" label="Cargo" value={cargo} onChange={setCargo} />
+          <InputField id="cargo" label="Cargo" value={cargo} onChange={setCargo} showButton={false} />
         </div>
       </div>
 
@@ -169,7 +169,7 @@ function Page1() {
       <h2>Deletar Funcionário</h2>
       <div className="formgrid grid">
         <div className="field col-12 md:col-3">
-          <InputField id="cpf" label="CPF" value={cpf} onChange={setCpf} />
+          <InputField id="cpf" label="CPF" value={cpf} onChange={setCpf} showButton={false} />
         </div>
       </div>
       <MyButton label="Remover Funcionario" onClick={handleDeleteFuncionario} className="custom-button" />
