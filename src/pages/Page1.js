@@ -19,7 +19,8 @@ function Page1() {
   const [numero, setNumero] = useState('');
   const [cidade, setCidade] = useState('');
   const [bairro, setBairro] = useState('');
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [cargo, setCargo] = useState('');
+  const [funcionarios, setFuncionarios] = useState('');
   const [error, setError] = useState(null);
 
   // Criar Funcionario
@@ -30,7 +31,7 @@ function Page1() {
         headers: {
           'Content-Type': 'application/json',
       },
-        body: JSON.stringify({ cpf, nome, telefone, email, rua, numero, cidade, bairro }),
+        body: JSON.stringify({ cpf, nome, telefone, email, rua, numero, cidade, bairro, cargo }),
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -38,7 +39,7 @@ function Page1() {
       const data = await response.json();
       console.log(data);
       setError(null);
-      handleGetFuncionarios(); // Atualiza a lista após criar um funcionário
+      handleGetFuncionarios(); 
     } catch (error) {
       setError(error.message);
     }
@@ -68,7 +69,7 @@ function Page1() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nome, telefone, email, rua, numero, cidade, bairro }),
+        body: JSON.stringify({ nome, telefone, email, rua, numero, cidade, bairro, cargo }),
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -76,7 +77,7 @@ function Page1() {
       const data = await response.json();
       setError(null);
       console.log(data);
-      handleGetFuncionarios(); // Atualiza a lista após atualizar um funcionário
+      handleGetFuncionarios();
     } catch (error) {
       setError(error.message);
     }
@@ -93,7 +94,7 @@ function Page1() {
       }
       console.log(`Funcionario com CPF ${cpf} deletado com sucesso.`);
       setError(null);
-      handleGetFuncionarios(); // Atualiza a lista após deletar um funcionário
+      handleGetFuncionarios(); 
     } catch (error) {
       setError(error.message);
     }
@@ -129,6 +130,9 @@ function Page1() {
         <div class="field col-15 md:col-3">
           <InputField id="bairro" label="Bairro" value={bairro} onChange={setBairro} />
         </div>
+        <div class="field col-15 md:col-3">
+          <InputField id="cargo" label="Cargo" value={cargo} onChange={setCargo} />
+        </div>
       </div>
   
       <div className="button-container">
@@ -159,6 +163,7 @@ function Page1() {
           <Column field="numero" header="Número" />
           <Column field="cidade" header="Cidade" />
           <Column field="bairro" header="Bairro" />
+          <Column field="cargo" header="Cargo" />
         </DataTable>
       </div>
     </div>
