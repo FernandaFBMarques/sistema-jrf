@@ -5,9 +5,9 @@ function Home() {
   return (
     <div>
       <h1>Home Page</h1>
-      <Link to="/page1">Go to Page 1</Link>
+      <Link to="/page1">Funcionários</Link>
       <br />
-      <Link to="/page2">Go to Page 2</Link>
+      <Link to="/page2">Produtos</Link>
     </div>
   );
 }
