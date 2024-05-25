@@ -1,11 +1,11 @@
 .custom-input {
-    width: 100%; /* Ajuste a largura conforme necessário */
-    max-width: 400px; /* Defina um valor máximo se necessário */
+    width: 100%; 
+    max-width: 400px; 
   }
 
   .custom-button {
     margin: 10px;
-    background-color: #002F52; /* Exemplo de cor personalizada */
+    background-color: #002F52; 
     border: none;
     border-radius: 4px;
     color: white;
@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Para garantir que os botões fiquem em múltiplas linhas, se necessário */
-    gap: 10px; /* Espaçamento entre os botões */
-    margin-top: 20px; /* Espaçamento superior para afastar dos inputs */
+    flex-wrap: wrap; 
+    gap: 10px; 
+    margin-top: 20px; 
   }
