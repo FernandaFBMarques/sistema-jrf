@@ -1,17 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Funcionarios from './componentes/Funcionarios';
 import Header from './componentes/Header';
-import Pesquisa from './componentes/Pesquisa';
-import UltimosLancamentos from './componentes/UltimosLancamentos';
 import styled from 'styled-components';
 
-// Importar as novas páginas
 import Home from './pages/Home';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
+import Page3 from './pages/Page3';
+import Page4 from './pages/Page4';
 
-//Importar componentes
 import PageLayout from './componentes/PageGeneral/PageLayout';
 
 const AppContainer = styled.div`
@@ -32,7 +29,8 @@ function App() {
           <Route path="/" element={<PageLayout><Home /></PageLayout>} />
           <Route path="/page1" element={<PageLayout><Page1 /></PageLayout>} />
           <Route path="/page2" element={<PageLayout><Page2 /></PageLayout>} />
-          {/* Outras rotas podem ser adicionadas aqui */}
+          <Route path="/page3" element={<PageLayout><Page3 /></PageLayout>} />
+          <Route path="/page4" element={<PageLayout><Page4 /></PageLayout>} />
         </Routes>
       </AppContainer>
     </Router>
