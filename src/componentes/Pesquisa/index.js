@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import InputField from '../Input/InputField'; // Certifique-se de que o caminho está correto
+import InputField from '../Input/InputField'; 
 import styled from 'styled-components';
 import { produto } from './dadosPesquisa';
 
@@ -7,53 +7,53 @@ const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002f52 35%, #326589 165%);
     color: #FFF;
     text-align: center;
-    padding: 50px 0; /* Reduzir padding */
+    padding: 50px 0;
     width: 100%;
-    box-sizing: border-box; /* Garantir que padding seja incluído no tamanho total */
+    box-sizing: border-box; 
 `;
 
 const Titulo = styled.h2`
     color: #FFF;
-    font-size: 32px; /* Ajustar tamanho da fonte */
-    margin: 0; /* Remover margens */
+    font-size: 32px; 
+    margin: 0; 
 `;
 
 const Subtitulo = styled.h3`
-    font-size: 18px; /* Ajustar tamanho da fonte */
+    font-size: 18px; 
     font-weight: 500;
-    margin-bottom: 20px; /* Reduzir margem inferior */
+    margin-bottom: 20px;
 `;
 
 const ResultadoContainer = styled.div`
     display: flex;
-    flex-direction: column; /* Exibir resultados em coluna */
-    align-items: center; /* Centralizar itens */
+    flex-direction: column; 
+    align-items: center; 
 `;
 
 const Resultado = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px; /* Reduzir margem inferior */
+    margin-bottom: 20px; 
     cursor: pointer;
-    padding: 10px; /* Adicionar padding */
-    width: 80%; /* Definir largura */
-    max-width: 600px; /* Definir largura máxima */
-    background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente */
-    border-radius: 8px; /* Bordas arredondadas */
+    padding: 10px; 
+    width: 80%; 
+    max-width: 600px; 
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 8px; 
     transition: background-color 0.3s ease;
 
     p {
-        margin: 0; /* Remover margens */
-        padding: 0 10px; /* Adicionar padding lateral */
-        flex: 1; /* Permitir que o texto ocupe o espaço restante */
-        text-align: left; /* Alinhar texto à esquerda */
+        margin: 0; 
+        padding: 0 10px; 
+        flex: 1;
+        text-align: left; 
     }
 
     img {
-        width: 80px; /* Reduzir largura da imagem */
-        height: auto; /* Manter proporção da imagem */
-        border-radius: 4px; /* Bordas arredondadas */
+        width: 80px; 
+        height: auto;
+        border-radius: 4px;
     }
     
     &:hover {
