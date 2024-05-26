@@ -13,7 +13,7 @@ import PageLayout from './componentes/PageGeneral/PageLayout';
 
 const AppContainer = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 200vh;
   background-image: linear-gradient(90deg, #002F52 45%, #326589 165%);
   margin: 0;
   padding: 0;
