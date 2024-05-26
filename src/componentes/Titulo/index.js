@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Titulo = styled.h2`
     width: 100%;
     padding: 30px 0;
-    background-color: #FFF;
+    background-color: linear-gradient(90deg, #002F52 45%, #326589 165%);
     color: ${props => props.cor || '#000'};
     font-size: ${props => props.tamanhoFonte || '18px'};
     text-align: ${props => props.alinhamento || 'center'};
