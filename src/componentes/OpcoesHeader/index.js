@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const textoOpcoes = [
   { texto: 'FUNCIONARIOS', path: '/page1' },
   { texto: 'PRODUTOS', path: '/page2' },
-  { texto: 'PEDIDOS', path: '/page3' },
+  { texto: 'VENDAS', path: '/page3' },
   { texto: 'CLIENTES', path: '/page4' }
 ];
 
