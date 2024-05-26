@@ -14,12 +14,12 @@ const PesquisaContainer = styled.section`
 
 const Titulo = styled.h2`
     color: #FFF;
-    font-size: 32px; 
+    font-size: 40px; 
     margin: 0; 
 `;
 
 const Subtitulo = styled.h3`
-    font-size: 18px; 
+    font-size: 22px; 
     font-weight: 500;
     margin-bottom: 20px;
 `;
@@ -57,7 +57,7 @@ const Resultado = styled.div`
     }
     
     &:hover {
-        background-color: rgba(255, 255, 255, 0.2); /* Alterar cor de fundo ao passar o mouse */
+        background-color: rgba(255, 255, 255, 0.2);
     }
 `;
 
@@ -74,7 +74,7 @@ function Pesquisa() {
     return (
         <PesquisaContainer>
             <Titulo>Já sabe por onde começar?</Titulo>
-            <Subtitulo>Encontre sua venda aqui.</Subtitulo>
+            <Subtitulo>Encontre seu produto aqui.</Subtitulo>
             <InputField
                 id="pesquisa"
                 label="Escreva aqui"
