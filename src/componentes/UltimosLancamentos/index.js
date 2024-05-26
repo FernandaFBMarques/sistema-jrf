@@ -5,7 +5,7 @@ import imagemTenis from '../../imagens/TenisOlympikusCorre3.png';
 import styled from 'styled-components';
 
 const UltimosLancamentosContainer = styled.section`
-    background-color: #EBECEE;
+    background-color: linear-gradient(90deg, #002f52 35%, #326589 165%);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -34,7 +34,7 @@ function UltimosLancamentos() {
         <UltimosLancamentosContainer>
             <Titulo 
                 cor="#EB9B00"
-                tamanhoFonte="24px" 
+                tamanhoFonte="30px" 
             >
                 ÚLTIMOS LANÇAMENTOS
             </Titulo>
