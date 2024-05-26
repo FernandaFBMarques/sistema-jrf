@@ -9,8 +9,9 @@ const HomeContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  padding: 20px;
-  gap: 20px; 
+  padding: 10px;
+  gap: 10px; 
+  background-image: linear-gradient(90deg, #002F52 45%, #326589 165%);
 `;
 
 function Home() {
