@@ -29,16 +29,20 @@ const ProductListItem = styled.div`
   padding: 1em;
   border-bottom: 1px solid #dcdcdc;
   background-color: white;
+  padding: 20px;
 `;
 
 const ProductListDetail = styled.div`
   flex: 1;
   padding: 1em;
+  word-wrap: break-word;
 `;
 
 const ProductListAction = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: 10px;
 `;
 
 const ProductGridItem = styled.div`
@@ -47,23 +51,35 @@ const ProductGridItem = styled.div`
   border-radius: 4px;
   margin: 0.5em;
   background-color: white;
+  padding: 20px;
 `;
 
 const ProductGridDetail = styled.div`
   text-align: center;
   padding: 1em 0;
+  word-wrap: break-word;
 `;
 
 const ProductGridAction = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  padding: 10px;
+`;
+
+const ProductImage = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 0 auto;
 `;
 
 const CustomButton = styled(Button)`
   background-color: #326589;
   color: white;
   border: none;
+  margin-top: 0.5em;
   &:hover {
     background-color: #e0e0e0;
   }
@@ -78,9 +94,15 @@ const FormGrid = styled.div`
   border-radius: 8px;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 0.5em;
+`;
+
 function Page2() {
   const [products, setProducts] = useState([]);
   const [layout, setLayout] = useState('grid');
+  const [editingProduct, setEditingProduct] = useState(null);
   const [codigoDeBarras, setCodigoDeBarras] = useState('');
   const [nomeProduto, setNomeProduto] = useState('');
   const [modelo, setModelo] = useState('');
@@ -101,6 +123,7 @@ function Page2() {
       const response = await axios.post('http://localhost:8080/produtos/addProduto', {
         codigoDeBarras, nomeProduto, modelo, cor, tamanho, categoria, preco, prazo, urlImagem
       });
+      console.log('Produto criado com sucesso:', response.data);
       handleGetProducts();
       setError(null);
     } catch (error) {
@@ -128,10 +151,37 @@ function Page2() {
     }
   };
 
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
+    setCodigoDeBarras(product.codigoDeBarras);
+    setNomeProduto(product.nomeProduto);
+    setModelo(product.modelo);
+    setCor(product.cor);
+    setTamanho(product.tamanho);
+    setCategoria(product.categoria);
+    setPreco(product.preco);
+    setPrazo(product.prazo);
+    setUrlImagem(product.urlImagem);
+  };
+
+  const handleUpdateProduct = async () => {
+    try {
+      const response = await axios.put(`http://localhost:8080/produtos/updateProduto/${codigoDeBarras}`, {
+        nomeProduto, modelo, cor, tamanho, categoria, preco, prazo, urlImagem
+      });
+      console.log('Produto atualizado com sucesso:', response.data);
+      handleGetProducts();
+      setEditingProduct(null);
+      setError(null);
+    } catch (error) {
+      setError(error.response?.data?.message || 'Erro ao atualizar o produto');
+    }
+  };
+
   const renderListItem = (product) => {
     return (
       <ProductListItem className="p-col-12">
-        <img src={product.urlImagem} alt={product.nomeProduto} />
+        <ProductImage src={product.urlImagem} alt={product.nomeProduto} />
         <ProductListDetail>
           <h5>{product.nomeProduto}</h5>
           <p>Modelo: {product.modelo}</p>
@@ -142,7 +192,10 @@ function Page2() {
         </ProductListDetail>
         <ProductListAction>
           <span className="product-price">${product.preco}</span>
-          <Button icon="pi pi-trash" label="Delete" onClick={() => handleDeleteProduct(product.codigoDeBarras)} />
+          <ButtonContainer>
+            <Button icon="pi pi-pencil" label="Edit" onClick={() => handleEditProduct(product)} />
+            <Button icon="pi pi-trash" label="Delete" onClick={() => handleDeleteProduct(product.codigoDeBarras)} />
+          </ButtonContainer>
         </ProductListAction>
       </ProductListItem>
     );
@@ -151,7 +204,7 @@ function Page2() {
   const renderGridItem = (product) => {
     return (
       <ProductGridItem className="p-col-12 p-md-4">
-        <img src={product.urlImagem} alt={product.nomeProduto} />
+        <ProductImage src={product.urlImagem} alt={product.nomeProduto} />
         <ProductGridDetail>
           <h5>{product.nomeProduto}</h5>
           <p>Modelo: {product.modelo}</p>
@@ -162,7 +215,10 @@ function Page2() {
         </ProductGridDetail>
         <ProductGridAction>
           <span className="product-price">${product.preco}</span>
-          <Button icon="pi pi-trash" label="Delete" onClick={() => handleDeleteProduct(product.codigoDeBarras)} />
+          <ButtonContainer>
+            <Button icon="pi pi-pencil" label="Edit" onClick={() => handleEditProduct(product)} />
+            <Button icon="pi pi-trash" label="Delete" onClick={() => handleDeleteProduct(product.codigoDeBarras)} />
+          </ButtonContainer>
         </ProductGridAction>
       </ProductGridItem>
     );
@@ -186,7 +242,7 @@ function Page2() {
 
       <FormGrid className="formgrid grid">
         <div className="field col-12 md:col-3">
-          <InputField id="codigoDeBarras" label="Código de Barras" value={codigoDeBarras} onChange={setCodigoDeBarras} showButton={false} />
+          <InputField id="codigoDeBarras" label="Código de Barras" value={codigoDeBarras} onChange={setCodigoDeBarras} showButton={false} disabled />
         </div>
         <div className="field col-12 md:col-3">
           <InputField id="nomeProduto" label="Nome do Produto" value={nomeProduto} onChange={setNomeProduto} showButton={false} />
@@ -215,7 +271,11 @@ function Page2() {
       </FormGrid>
 
       <div className="button-container">
-        <CustomButton label="Criar Produto" onClick={handleCreateProduct} />
+        {editingProduct ? (
+          <CustomButton label="Atualizar Produto" onClick={handleUpdateProduct} />
+        ) : (
+          <CustomButton label="Criar Produto" onClick={handleCreateProduct} />
+        )}
       </div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
