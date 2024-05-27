@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import perfil from '../../imagens/perfil.svg';
-import sacola from '../../imagens/sacola.svg';
+import home from '../../imagens/home.svg';
 import styled from 'styled-components';
 
 const icones = [
-  { src: perfil, path: '/' }, 
-  { src: sacola, path: '/' }  
+  { src: home, path: '/' }, 
 ];
 
 const Icone = styled.li`
