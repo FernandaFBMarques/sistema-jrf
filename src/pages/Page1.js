@@ -24,7 +24,7 @@ function Page1() {
   const [cnpj, setCnpj] = useState('');
   const [matGerente, setMatGerente] = useState('');
   const [fkFuncionariosCpf, setFkFuncionariosCpf] = useState('');
-  const [dependentes, setDependentes] = useState([{ nome: '', cpf: '' }, { nome: '', cpf: '' }, { nome: '', cpf: '' }, { nome: '', cpf: '' }, { nome: '', cpf: '' }, { nome: '', cpf: '' }]);
+  const [dependentes, setDependentes] = useState([{ nome: '', cpf: '' }]);
   const [funcionarios, setFuncionarios] = useState([]);
   const [filteredFuncionarios, setFilteredFuncionarios] = useState([]);
   const [error, setError] = useState(null);
@@ -42,8 +42,7 @@ function Page1() {
   const cargos = [
     { label: 'Todos', value: 'todos' },
     { label: 'Contador', value: 'Contador' },
-    { label: 'Equipe de Vendas', value: 'Equipe de Vendas' },
-    { label: 'Dependente', value: 'Dependente' }
+    { label: 'Equipe de Vendas', value: 'Equipe de Vendas' }
   ];
 
   const tiposFuncionario = [
@@ -97,10 +96,23 @@ function Page1() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setFuncionarios(data);
-      setSelectedCargo('todos');
+      
+      // Determine the cargo for each employee
+      const funcionariosComCargo = data.map(funcionario => {
+        if (funcionario.contador) {
+          funcionario.cargo = 'Contador';
+        } else if (funcionario.equipeDeVendas) {
+          funcionario.cargo = 'Equipe de Vendas';
+        } else {
+          funcionario.cargo = 'Outro';
+        }
+        return funcionario;
+      });
+
+      setFuncionarios(funcionariosComCargo);
+      setFilteredFuncionarios(funcionariosComCargo); // Inicialmente mostrar todos
       setError(null);
-      console.log(data);
+      console.log(funcionariosComCargo);
     } catch (error) {
       setError(error.message);
     }
@@ -113,10 +125,22 @@ function Page1() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setFuncionarios(data);
-      setSelectedCargo('todos');
+
+      const funcionariosComCargo = data.map(funcionario => {
+        if (funcionario.contador) {
+          funcionario.cargo = 'Contador';
+        } else if (funcionario.equipeDeVendas) {
+          funcionario.cargo = 'Equipe de Vendas';
+        } else {
+          funcionario.cargo = 'Outro';
+        }
+        return funcionario;
+      });
+
+      setFuncionarios(funcionariosComCargo);
+      setFilteredFuncionarios(funcionariosComCargo); // Atualiza a lista filtrada
       setError(null);
-      console.log(data);
+      console.log(funcionariosComCargo);
     } catch (error) {
       setError(error.message);
     }
@@ -129,10 +153,22 @@ function Page1() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      setFuncionarios(data);
-      setSelectedCargo('todos');
+
+      const funcionariosComCargo = data.map(funcionario => {
+        if (funcionario.contador) {
+          funcionario.cargo = 'Contador';
+        } else if (funcionario.equipeDeVendas) {
+          funcionario.cargo = 'Equipe de Vendas';
+        } else {
+          funcionario.cargo = 'Outro';
+        }
+        return funcionario;
+      });
+
+      setFuncionarios(funcionariosComCargo);
+      setFilteredFuncionarios(funcionariosComCargo); // Atualiza a lista filtrada
       setError(null);
-      console.log(data);
+      console.log(funcionariosComCargo);
     } catch (error) {
       setError(error.message);
     }
@@ -266,7 +302,9 @@ function Page1() {
             <InputField id="clt" label="CLT" value={clt} onChange={(e) => setClt(e.target.value)} name="clt" showButton={false} />
           </div>
           <div className="formgrid grid">
-            <p>Adicione Dependentes</p>
+            <div className="field col-12 md:col-3">
+              <p>Adicione Dependentes</p>
+            </div>
             {dependentes.map((dependente, index) => (
               <div key={index} className="formgrid grid">
                 <div className="field col-12 md:col-6">
@@ -310,7 +348,6 @@ function Page1() {
         <MyButton label="Listar Todos os Funcionários" onClick={handleGetFuncionarios} className="custom-button" />
       </div>
       
-    
       <div>
         <DataTable value={filteredFuncionarios} tableStyle={{ minWidth: '50rem' }}>
           <Column field="cpf" header="CPF" />
