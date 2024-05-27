@@ -1,165 +1,168 @@
+// src/pages/Page4.js
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
-import { InputText } from 'primereact/inputtext';
-import { Checkbox } from 'primereact/checkbox';
-import styled from 'styled-components';
+import InputField from '../componentes/Input/InputField.js';
+import MyButton from '../componentes/Mybutton.js';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  padding: 10px;
-  gap: 10px;
-  background-image: linear-gradient(90deg, #002f52 45%, #326589 165%);
-`;
-
-const fetchCustomers = async () => {
-  const response = await fetch('http://localhost:8080/clientes');
-  return response.json();
-};
-
-const deleteCustomer = async (cnpj) => {
-  await fetch(`http://localhost:8080/clientes/deleteCliente/${cnpj}`, {
-    method: 'DELETE'
-  });
-};
-
-const saveCustomer = async (customer, isEdit) => {
-  const method = isEdit ? 'PUT' : 'POST';
-  const endpoint = isEdit ? `http://localhost:8080/clientes/updateCliente` : 'http://localhost:8080/clientes/addCliente';
-  await fetch(endpoint, {
-    method: method,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(customer)
-  });
-};
+import 'primeflex/primeflex.css';
+import '../styles/customStyles.css';
 
 function Page4() {
-  const [customers, setCustomers] = useState([]);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [cnpj, setCnpj] = useState('');
+  const [nomeLoja, setNomeLoja] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [email, setEmail] = useState('');
+  const [rua, setRua] = useState('');
+  const [numero, setNumero] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [estado, setEstado] = useState('');
+  const [tipoVarejo, setTipoVarejo] = useState(false);
+  const [tipoBoutique, setTipoBoutique] = useState(false);
+  const [clientes, setClientes] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getCustomers = async () => {
-      const customersData = await fetchCustomers();
-      setCustomers(customersData);
-    };
-
-    getCustomers();
+    handleGetClientes();
   }, []);
 
-  const openNew = () => {
-    setSelectedCustomer({ cnpj: '', nomeLoja: '', telefone: '', email: '', rua: '', numero: '', cidade: '', bairro: '', estado: '', tipoVarejo: false, tipoBoutique: false, emails: [] });
-    setIsDialogVisible(true);
-  };
-
-  const hideDialog = () => {
-    setIsDialogVisible(false);
-    setSelectedCustomer(null);
-  };
-
-  const saveCustomerHandler = async () => {
-    await saveCustomer(selectedCustomer, !!selectedCustomer.cnpj);
-    const customersData = await fetchCustomers();
-    setCustomers(customersData);
-    hideDialog();
-  };
-
-  const deleteCustomerHandler = async (cnpj) => {
-    if (window.confirm('Você tem certeza que deseja deletar este cliente?')) {
-      await deleteCustomer(cnpj);
-      const customersData = await fetchCustomers();
-      setCustomers(customersData);
+  const handleCreateCliente = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/clientes/addCliente', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cnpj, nomeLoja, telefone, email, rua, numero, cidade, bairro, estado, tipoVarejo, tipoBoutique }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      setError(null);
+      handleGetClientes();
+    } catch (error) {
+      setError(error.message);
     }
   };
 
-  const rowExpansionTemplate = (data) => {
-    return (
-      <div>
-        <h5>Detalhes do Cliente {data.nomeLoja}</h5>
-        <div><strong>CNPJ:</strong> {data.cnpj}</div>
-        <div><strong>Telefones:</strong> {data.telefone}</div>
-        <div><strong>E-mails:</strong> {data.emails.join(', ')}</div>
-        <div><strong>Endereço:</strong> {`${data.rua}, ${data.numero}, ${data.bairro}, ${data.cidade} - ${data.estado}`}</div>
-        <div><strong>Tipo:</strong> {data.tipoVarejo ? 'Varejo' : 'Boutique'}</div>
-      </div>
-    );
+  const handleGetClientes = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/clientes');
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      setClientes(data);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const handleUpdateCliente = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/clientes/updateCliente`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cnpj, nomeLoja, telefone, email, rua, numero, cidade, bairro, estado, tipoVarejo, tipoBoutique }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      setError(null);
+      handleGetClientes();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const handleDeleteCliente = async () => {
+    try {
+      const response = await fetch(`http://localhost:8080/clientes/deleteCliente/${cnpj}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      setError(null);
+      handleGetClientes();
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
-    <PageContainer>
+    <div>
       <h1>Clientes</h1>
-      <Button label="Novo Cliente" icon="pi pi-plus" onClick={openNew} />
-      <DataTable value={customers} expandedRows={[]} rowExpansionTemplate={rowExpansionTemplate} dataKey="cnpj">
-        <Column expander style={{ width: '3em' }} />
-        <Column field="nomeLoja" header="Nome da Loja" />
-        <Column field="cnpj" header="CNPJ" />
-        <Column field="tipo" header="Tipo" />
-        <Column body={(rowData) => (
-          <Button icon="pi pi-trash" onClick={() => deleteCustomerHandler(rowData.cnpj)} />
-        )} />
-      </DataTable>
+      <h2>Editar ou Criar Clientes</h2>
 
-      <Dialog visible={isDialogVisible} style={{ width: '450px' }} header="Detalhes do Cliente" modal className="p-fluid" footer={() => (
-        <React.Fragment>
-          <Button label="Cancelar" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-          <Button label="Salvar" icon="pi pi-check" className="p-button-text" onClick={saveCustomerHandler} />
-        </React.Fragment>
-      )} onHide={hideDialog}>
-        <div className="p-field">
-          <label htmlFor="nomeLoja">Nome da Loja</label>
-          <InputText id="nomeLoja" value={selectedCustomer ? selectedCustomer.nomeLoja : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, nomeLoja: e.target.value })} required autoFocus />
+      <div className="formgrid grid">
+        <div className="field col-12 md:col-3">
+          <InputField id="cnpj" label="CNPJ" value={cnpj} onChange={setCnpj} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="cnpj">CNPJ</label>
-          <InputText id="cnpj" value={selectedCustomer ? selectedCustomer.cnpj : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, cnpj: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="nomeLoja" label="Nome da Loja" value={nomeLoja} onChange={setNomeLoja} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="telefone">Telefone</label>
-          <InputText id="telefone" value={selectedCustomer ? selectedCustomer.telefone : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, telefone: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="telefone" label="Telefone" value={telefone} onChange={setTelefone} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="email">Email</label>
-          <InputText id="email" value={selectedCustomer ? selectedCustomer.email : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, email: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="email" label="Email" value={email} onChange={setEmail} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="rua">Rua</label>
-          <InputText id="rua" value={selectedCustomer ? selectedCustomer.rua : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, rua: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="rua" label="Rua" value={rua} onChange={setRua} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="numero">Número</label>
-          <InputText id="numero" value={selectedCustomer ? selectedCustomer.numero : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, numero: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="numero" label="Número" value={numero} onChange={setNumero} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="cidade">Cidade</label>
-          <InputText id="cidade" value={selectedCustomer ? selectedCustomer.cidade : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, cidade: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="cidade" label="Cidade" value={cidade} onChange={setCidade} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="bairro">Bairro</label>
-          <InputText id="bairro" value={selectedCustomer ? selectedCustomer.bairro : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, bairro: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="bairro" label="Bairro" value={bairro} onChange={setBairro} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="estado">Estado</label>
-          <InputText id="estado" value={selectedCustomer ? selectedCustomer.estado : ''} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, estado: e.target.value })} required />
+        <div className="field col-12 md:col-3">
+          <InputField id="estado" label="Estado" value={estado} onChange={setEstado} showButton={false} />
         </div>
-        <div className="p-field">
-          <label htmlFor="tipoVarejo">Tipo Varejo</label>
-          <Checkbox inputId="tipoVarejo" checked={selectedCustomer ? selectedCustomer.tipoVarejo : false} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, tipoVarejo: e.checked })} />
+        <div className="field col-12 md:col-3">
+          <label>Tipo Varejo</label>
+          <input type="checkbox" checked={tipoVarejo} onChange={(e) => setTipoVarejo(e.target.checked)} />
         </div>
-        <div className="p-field">
-          <label htmlFor="tipoBoutique">Tipo Boutique</label>
-          <Checkbox inputId="tipoBoutique" checked={selectedCustomer ? selectedCustomer.tipoBoutique : false} onChange={(e) => setSelectedCustomer({ ...selectedCustomer, tipoBoutique: e.checked })} />
+        <div className="field col-12 md:col-3">
+          <label>Tipo Boutique</label>
+          <input type="checkbox" checked={tipoBoutique} onChange={(e) => setTipoBoutique(e.target.checked)} />
         </div>
-      </Dialog>
-    </PageContainer>
+      </div>
+
+      <div className="button-container">
+        <MyButton label="Criar Novo Cliente" onClick={handleCreateCliente} className="custom-button" />
+        <MyButton label="Atualizar Cliente" onClick={handleUpdateCliente} className="custom-button" />
+        <MyButton label="Remover Cliente" onClick={handleDeleteCliente} className="custom-button" />
+      </div>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <h2>Lista de Clientes</h2>
+      <div>
+        <DataTable value={clientes} tableStyle={{ minWidth: '50rem' }}>
+          <Column field="cnpj" header="CNPJ" />
+          <Column field="nomeLoja" header="Nome da Loja" />
+          <Column field="telefone" header="Telefone" />
+          <Column field="email" header="Email" />
+          <Column field="rua" header="Rua" />
+          <Column field="numero" header="Número" />
+          <Column field="cidade" header="Cidade" />
+          <Column field="bairro" header="Bairro" />
+          <Column field="estado" header="Estado" />
+          <Column field="tipoVarejo" header="Tipo Varejo" body={(rowData) => rowData.tipoVarejo ? 'Sim' : 'Não'} />
+          <Column field="tipoBoutique" header="Tipo Boutique" body={(rowData) => rowData.tipoBoutique ? 'Sim' : 'Não'} />
+        </DataTable>
+      </div>
+    </div>
   );
 }
 

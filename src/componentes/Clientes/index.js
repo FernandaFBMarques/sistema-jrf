@@ -1,19 +1,35 @@
+// src/componentes/Clientes/index.js
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/clientes';
+function Clientes() {
+  const [clientes, setClientes] = useState([]); 
 
-export const getAllClientes = async () => {
-    return await axios.get(API_URL);
-};
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/clientes');
+        setClientes(response.data); 
+      } catch (error) {
+        console.error('Erro ao buscar os clientes:', error);
+      }
+    };
 
-export const addCliente = async (cliente) => {
-    return await axios.post(`${API_URL}/addCliente`, cliente);
-};
+    fetchClientes(); 
+  }, []); 
 
-export const updateCliente = async (cliente) => {
-    return await axios.put(`${API_URL}/updateCliente`, cliente);
-};
+  return (
+    <div>
+      <h1>Lista de Clientes</h1>
+      <ul>
+        {clientes.map(cliente => (
+          <li key={cliente.cnpj}>
+            {cliente.nomeLoja} - {cliente.cnpj} - {cliente.email}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-export const deleteCliente = async (cnpj) => {
-    return await axios.delete(`${API_URL}/deleteCliente/${cnpj}`);
-};
+export default Clientes;

@@ -1,3 +1,4 @@
+// src/componentes/Input/InputField.js
 import React from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -19,8 +20,8 @@ const InputGroup = styled.div`
 
 const InputTextStyled = styled(InputText)`
   flex: 1;
-  border-top-right-radius: ${({ showButton }) => (showButton ? '0' : '4px')};
-  border-bottom-right-radius: ${({ showButton }) => (showButton ? '0' : '4px')};
+  border-top-right-radius: ${({ $showButton }) => ($showButton ? '0' : '4px')};
+  border-bottom-right-radius: ${({ $showButton }) => ($showButton ? '0' : '4px')};
 `;
 
 const ButtonStyled = styled(Button)`
@@ -38,7 +39,7 @@ const InputField = ({ id, label, value, onChange, showButton = true }) => {
           onChange={(e) => onChange(e.target.value)} 
           placeholder={label} 
           className="custom-input" 
-          showButton={showButton} 
+          $showButton={showButton} // Note o uso de $ para evitar passar para o DOM
         />
         {showButton && (
           <ButtonStyled 
