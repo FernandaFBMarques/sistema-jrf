@@ -61,7 +61,7 @@ function Page1() {
         numero,
         cidade,
         bairro,
-        cargo
+        cargo: tipoFuncionario === 'contador' ? 'Contador' : 'Equipe de Vendas' // Define o cargo baseado no tipo de funcionário
       };
 
       if (tipoFuncionario === 'contador') {
@@ -184,7 +184,7 @@ function Page1() {
         numero,
         cidade,
         bairro,
-        cargo
+        cargo: tipoFuncionario === 'contador' ? 'Contador' : 'Equipe de Vendas' // Define o cargo baseado no tipo de funcionário
       };
 
       if (tipoFuncionario === 'contador') {
@@ -250,28 +250,28 @@ function Page1() {
 
       <div className="formgrid grid">
         <div className="field col-12 md:col-3">
-          <InputField id="nome" label="Nome" value={nome} onChange={(e) => setNome(e.target.value)} name="nome" showButton={false} />
+          <InputField id="nome" label="Nome" value={nome} onChange={(value) => setNome(value)} name="nome" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="cpf" label="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} name="cpf" showButton={false} />
+          <InputField id="cpf" label="CPF" value={cpf} onChange={(value) => setCpf(value)} name="cpf" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="telefone" label="Telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} name="telefone" showButton={false} />
+          <InputField id="telefone" label="Telefone" value={telefone} onChange={(value) => setTelefone(value)} name="telefone" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="email" label="Email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" showButton={false} />
+          <InputField id="email" label="Email" value={email} onChange={(value) => setEmail(value)} name="email" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="rua" label="Rua" value={rua} onChange={(e) => setRua(e.target.value)} name="rua" showButton={false} />
+          <InputField id="rua" label="Rua" value={rua} onChange={(value) => setRua(value)} name="rua" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="numero" label="Número" value={numero} onChange={(e) => setNumero(e.target.value)} name="numero" showButton={false} />
+          <InputField id="numero" label="Número" value={numero} onChange={(value) => setNumero(value)} name="numero" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="cidade" label="Cidade" value={cidade} onChange={(e) => setCidade(e.target.value)} name="cidade" showButton={false} />
+          <InputField id="cidade" label="Cidade" value={cidade} onChange={(value) => setCidade(value)} name="cidade" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="bairro" label="Bairro" value={bairro} onChange={(e) => setBairro(e.target.value)} name="bairro" showButton={false} />
+          <InputField id="bairro" label="Bairro" value={bairro} onChange={(value) => setBairro(value)} name="bairro" showButton={false} />
         </div>
       </div>
 
@@ -282,13 +282,13 @@ function Page1() {
       {tipoFuncionario === 'vendas' && (
         <div>
           <div className="field col-12 md:col-3">
-            <InputField id="fkFuncionariosCpf" label="CPF" value={fkFuncionariosCpf} onChange={(e) => setFkFuncionariosCpf(e.target.value)} name="fkFuncionariosCpf" showButton={false} />
+            <InputField id="fkFuncionariosCpf" label="CPF" value={fkFuncionariosCpf} onChange={(value) => setFkFuncionariosCpf(value)} name="fkFuncionariosCpf" showButton={false} />
           </div>
           <div className="field col-12 md:col-3">
-            <InputField id="cnpj" label="CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} name="cnpj" showButton={false} />
+            <InputField id="cnpj" label="CNPJ" value={cnpj} onChange={(value) => setCnpj(value)} name="cnpj" showButton={false} />
           </div>
           <div className="field col-12 md:col-3">
-            <InputField id="mat_gerente" label="Matrícula do Gerente" value={matGerente} onChange={(e) => setMatGerente(e.target.value)} name="mat_gerente" showButton={false} />
+            <InputField id="mat_gerente" label="Matrícula do Gerente" value={matGerente} onChange={(value) => setMatGerente(value)} name="mat_gerente" showButton={false} />
           </div>
         </div>
       )}
@@ -296,14 +296,14 @@ function Page1() {
       {tipoFuncionario === 'contador' && (
         <div>
           <div className="field col-12 md:col-3">
-            <InputField id="fkFuncionariosCpf" label="CPF" value={fkFuncionariosCpf} onChange={(e) => setFkFuncionariosCpf(e.target.value)} name="fkFuncionariosCpf" showButton={false} />
+            <InputField id="fkFuncionariosCpf" label="CPF" value={fkFuncionariosCpf} onChange={(value) => setFkFuncionariosCpf(value)} name="fkFuncionariosCpf" showButton={false} />
           </div>
           <div className="field col-12 md:col-3">
-            <InputField id="clt" label="CLT" value={clt} onChange={(e) => setClt(e.target.value)} name="clt" showButton={false} />
+            <InputField id="clt" label="CLT" value={clt} onChange={(value) => setClt(value)} name="clt" showButton={false} />
           </div>
           <div className="formgrid grid">
-            <div className="field col-12 md:col-3">
-              <p>Adicione Dependentes</p>
+            <div className=" col-12 md:col-3">
+              <h3>Adicione Dependentes:</h3>
             </div>
             {dependentes.map((dependente, index) => (
               <div key={index} className="formgrid grid">
@@ -312,7 +312,7 @@ function Page1() {
                     id={`dependente-nome-${index}`}
                     label={`Nome do Dependente ${index + 1}`}
                     value={dependente.nome}
-                    onChange={(e) => handleDependenteChange(index, 'nome', e.target.value)}
+                    onChange={(value) => handleDependenteChange(index, 'nome', value)}
                     name="nome"
                     showButton={false}
                   />
@@ -322,7 +322,7 @@ function Page1() {
                     id={`dependente-cpf-${index}`}
                     label={`CPF do Dependente ${index + 1}`}
                     value={dependente.cpf}
-                    onChange={(e) => handleDependenteChange(index, 'cpf', e.target.value)}
+                    onChange={(value) => handleDependenteChange(index, 'cpf', value)}
                     name="cpf"
                     showButton={false}
                   />
