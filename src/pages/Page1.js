@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
+import { Column } from 'primereact/column';
 import InputField from '../componentes/Input/InputField.js';
 import MyButton from '../componentes/Mybutton.js';
 import 'primereact/resources/themes/saga-blue/theme.css';
@@ -30,10 +30,9 @@ function Page1() {
   const [error, setError] = useState(null);
   const [selectedCargo, setSelectedCargo] = useState('todos');
   const [tipoFuncionario, setTipoFuncionario] = useState('');
-  const [ativo, setAtivo] = useState(true);
 
   useEffect(() => {
-    handleGetFuncionariosAtivos();
+    handleGetFuncionarios();
   }, []);
 
   useEffect(() => {
@@ -85,7 +84,7 @@ function Page1() {
       const data = await response.json();
       console.log(data);
       setError(null);
-      handleGetFuncionariosAtivos();
+      handleGetFuncionarios();
     } catch (error) {
       setError(error.message);
     }
@@ -171,7 +170,7 @@ function Page1() {
       const data = await response.json();
       setError(null);
       console.log(data);
-      handleGetFuncionariosAtivos();
+      handleGetFuncionarios();
     } catch (error) {
       setError(error.message);
     }
@@ -187,7 +186,7 @@ function Page1() {
       }
       console.log(`Funcionario com CPF ${cpf} inativado com sucesso.`);
       setError(null);
-      handleGetFuncionariosAtivos();
+      handleGetFuncionarios();
     } catch (error) {
       setError(error.message);
     }
@@ -306,17 +305,12 @@ function Page1() {
       <h2>Lista de Funcionários</h2>
       <div className="flex-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <Dropdown value={selectedCargo} options={cargos} onChange={(e) => setSelectedCargo(e.value)} placeholder="Selecione um Cargo" />
-        <Dropdown value={ativo} options={[{ label: 'Ativos', value: true }, { label: 'Inativos', value: false }]} onChange={(e) => {
-          setAtivo(e.value);
-          if (e.value) {
-            handleGetFuncionariosAtivos();
-          } else {
-            handleGetFuncionariosInativos();
-          }
-        }} placeholder="Selecione o Status" />
-        <MyButton label="Listar todos os Funcionários" onClick={handleGetFuncionarios} className="custom-button" />
+        <MyButton label="Listar Funcionários Ativos" onClick={handleGetFuncionariosAtivos} className="custom-button" />
+        <MyButton label="Listar Funcionários Inativos" onClick={handleGetFuncionariosInativos} className="custom-button" />
+        <MyButton label="Listar Todos os Funcionários" onClick={handleGetFuncionarios} className="custom-button" />
       </div>
-
+      
+    
       <div>
         <DataTable value={filteredFuncionarios} tableStyle={{ minWidth: '50rem' }}>
           <Column field="cpf" header="CPF" />
