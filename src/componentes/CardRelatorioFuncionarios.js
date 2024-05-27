@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Titulo } from "./Titulo";
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Importe o useNavigate
 
 const Card = styled.div`
    align-items: center;
@@ -39,7 +40,13 @@ const Subtitulo = styled.h4`
    margin: 15px 0;
 `;
 
-function CardRecomenda({ titulo, subtitulo, descricao, onClick }) {
+function CardRelatorioFuncionarios({ titulo, subtitulo, descricao }) {
+   const navigate = useNavigate(); // Use o hook useNavigate
+
+   const handleClick = () => {
+       navigate('/relatorio-funcionarios'); // Navegue para a rota desejada
+   };
+
    return (
        <Card>
            <div>
@@ -50,10 +57,10 @@ function CardRecomenda({ titulo, subtitulo, descricao, onClick }) {
                <Descricao>{descricao}</Descricao>
            </div>
            <div>
-               <Botao onClick={onClick}>Saiba mais</Botao>
+               <Botao onClick={handleClick}>Saiba mais</Botao>
            </div>
        </Card>
    );
 }
 
-export default CardRecomenda;
+export default CardRelatorioFuncionarios;

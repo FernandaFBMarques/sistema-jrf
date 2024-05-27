@@ -1,5 +1,4 @@
 import React from 'react';
-import Pesquisa from '../componentes/Pesquisa';
 import UltimosLancamentos from '../componentes/UltimosLancamentos';
 import styled from 'styled-components';
 
@@ -17,7 +16,6 @@ const HomeContainer = styled.div`
 function Home() {
   return (
     <HomeContainer>
-      <Pesquisa />
       <UltimosLancamentos />
     </HomeContainer>
   );
