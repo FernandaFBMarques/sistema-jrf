@@ -1,5 +1,6 @@
-import styled from "styled-components"
-import { Titulo } from "../Titulo"
+import styled from "styled-components";
+import { Titulo } from "./Titulo";
+import React from 'react';
 
 const Card = styled.div`
    align-items: center;
@@ -13,7 +14,7 @@ const Card = styled.div`
    justify-content: space-around;
    width: 100%; 
    margin-top: 30px;
-`
+`;
 const Botao = styled.button`
    background-color: #EB9B00;
    color: #FFF;
@@ -27,37 +28,32 @@ const Botao = styled.button`
    &:hover {
        cursor: pointer;
    }
-`
+`;
 const Descricao = styled.p`
    max-width: 300px;
-`
+`;
 const Subtitulo = styled.h4`
    color: #002F52;
    font-size: 18px;
    font-weight: bold;
    margin: 15px 0;
-`
-const ImgTenis = styled.img`
-   width: 150px;
-`
+`;
 
-function CardRecomenda({titulo, subtitulo, descricao, img}) {
+function CardRecomenda({ titulo, subtitulo, descricao, onClick }) {
    return (
        <Card>
            <div>
-               <Titulo
-                   tamanhoFonte="16px"
-                   cor="#EB9B00"
-                   alinhamento="left"
-               >{titulo}</Titulo>
+               <Titulo tamanhoFonte="16px" cor="#EB9B00" alinhamento="left">
+                   {titulo}
+               </Titulo>
                <Subtitulo>{subtitulo}</Subtitulo>
                <Descricao>{descricao}</Descricao>
            </div>
            <div>
-               <ImgTenis src={img}/>
-               <Botao>Saiba mais</Botao>
+               <Botao onClick={onClick}>Saiba mais</Botao>
            </div>
-       </Card> 
-   )
+       </Card>
+   );
 }
-export default CardRecomenda
+
+export default CardRecomenda;

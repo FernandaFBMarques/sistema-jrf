@@ -8,6 +8,10 @@ import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Page3 from './pages/Page3';
 import Page4 from './pages/Page4';
+import RelatorioFuncionarios from './pages/RelatorioFuncionarios';
+import RelatorioClientes from './pages/RelatorioClientes';
+import RelatorioProdutos from './pages/RelatorioProdutos';
+import RelatorioVenda from './pages/RelatorioVenda';
 
 import PageLayout from './componentes/PageGeneral/PageLayout';
 
@@ -31,6 +35,10 @@ function App() {
           <Route path="/page2" element={<PageLayout><Page2 /></PageLayout>} />
           <Route path="/page3" element={<PageLayout><Page3 /></PageLayout>} />
           <Route path="/page4" element={<PageLayout><Page4 /></PageLayout>} />
+          <Route path="/relatorio-funcionarios" element={<PageLayout><RelatorioFuncionarios /></PageLayout>} />
+          <Route path="/relatorio-clientes" element={<PageLayout><RelatorioClientes /></PageLayout>} />
+          <Route path="/relatorio-produtos" element={<PageLayout><RelatorioProdutos /></PageLayout>} />
+          <Route path="/relatorio-venda" element={<PageLayout><RelatorioVenda /></PageLayout>} />
         </Routes>
       </AppContainer>
     </Router>
