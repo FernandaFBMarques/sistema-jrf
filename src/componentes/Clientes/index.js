@@ -1,4 +1,3 @@
-// src/componentes/Clientes/index.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 

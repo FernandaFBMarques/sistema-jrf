@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Titulo } from "./Titulo";
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importe o useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
 const Card = styled.div`
    align-items: center;

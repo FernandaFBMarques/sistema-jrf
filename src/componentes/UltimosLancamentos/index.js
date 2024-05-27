@@ -14,7 +14,7 @@ const UltimosLancamentosContainer = styled.section`
 `;
 
 const CardWrapper = styled.div`
-    flex: 1 1 45%; // Isso faz com que o card ocupe 45% da largura, permitindo 2 cards por linha
+    flex: 1 1 45%; 
     margin: 10px;
     max-width: 45%;
 `;

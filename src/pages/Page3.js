@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
 import styled from 'styled-components';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -19,7 +18,7 @@ const PageContainer = styled.div`
 `;
 
 const fetchSales = async () => {
-  // Simular a chamada de uma API para buscar dados de vendas
+
   return [
     {
       id: 1,

@@ -30,6 +30,8 @@ const ProductListItem = styled.div`
   border-bottom: 1px solid #dcdcdc;
   background-color: white;
   padding: 20px;
+  height: 250px; 
+  width: 100%; 
 `;
 
 const ProductListDetail = styled.div`
