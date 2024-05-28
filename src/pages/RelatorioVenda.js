@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Card } from 'primereact/card';
+import 'primereact/resources/themes/saga-blue/theme.css';  
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 function RelatorioVenda() {
   const [totalVendasSemImposto, setTotalVendasSemImposto] = useState(0);
@@ -27,16 +33,25 @@ function RelatorioVenda() {
   return (
     <div>
       <h1>Relatório Vendas</h1>
-      <p>Total de vendas sem imposto: {totalVendasSemImposto}</p>
-      <p>Total de vendas com imposto: {totalVendasComImposto}</p>
+      <div className="p-grid">
+        <div className="p-col-12 p-md-6">
+          <Card title="Total de vendas sem imposto">
+            <p className="p-m-0">{totalVendasSemImposto}</p>
+          </Card>
+        </div>
+        <div className="p-col-12 p-md-6">
+          <Card title="Total de vendas com imposto">
+            <p className="p-m-0">{totalVendasComImposto}</p>
+          </Card>
+        </div>
+      </div>
       <h2>Vendas por membro da equipe:</h2>
-      <ul>
-        {vendasPorMembro.map((venda, index) => (
-          <li key={index}>
-            Vendedor: {venda.nomeVendedor}, Total de Vendas: {venda.totalVendas}, Total de Impostos: {venda.totalImpostos}, Gerente: {venda.nomeGerente}
-          </li>
-        ))}
-      </ul>
+      <DataTable value={vendasPorMembro} stripedRows>
+        <Column field="nomeVendedor" header="VENDEDOR" />
+        <Column field="totalVendas" header="TOTAL DE VENDAS" />
+        <Column field="totalImpostos" header="TOTAL DE IMPOSTOS" />
+        <Column field="nomeGerente" header="GERENTE" />
+      </DataTable>
     </div>
   );
 }

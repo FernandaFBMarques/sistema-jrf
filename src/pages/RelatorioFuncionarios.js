@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Card } from 'primereact/card';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 function RelatorioFuncionarios() {
   const [dependentes, setDependentes] = useState([]);
@@ -33,39 +39,41 @@ function RelatorioFuncionarios() {
   return (
     <div>
       <h1>Relatório Funcionários</h1>
+
       <h2>Análise com Dependentes</h2>
-      <ul>
-        {dependentes.map((item, index) => (
-          <li key={index}>
-            Funcionário: {item.nomeFuncionario}, Dependente: {item.nomeDependente}
-          </li>
-        ))}
-      </ul>
+      <DataTable value={dependentes} stripedRows>
+        <Column field="nomeFuncionario" header="Funcionário"></Column>
+        <Column field="nomeDependente" header="Dependente"></Column>
+      </DataTable>
+
       <h2>Análise com Auto Relacionamento</h2>
-      <ul>
-        {relacionamentos.map((item, index) => (
-          <li key={index}>
-            Funcionário: {item.nomeFuncionario}, Gerente: {item.nomeGerente}
-          </li>
-        ))}
-      </ul>
-      <h2>Vendedor que Mais Vendeu</h2>
+      <DataTable value={relacionamentos} stripedRows>
+        <Column field="nomeFuncionario" header="Funcionário"></Column>
+        <Column field="nomeGerente" header="Gerente"></Column>
+      </DataTable>
+
+      <h2>Vendedor que mais vendeu</h2>
       {vendedorMaisVendeu && (
-        <p>
-          Vendedor: {vendedorMaisVendeu.nomeVendedor}, Total de Vendas: R$ {vendedorMaisVendeu.totalVendas.toFixed(2)}
-        </p>
+        <Card>
+          <p><strong>Vendedor</strong>: {vendedorMaisVendeu.nomeVendedor}</p>
+          <p><strong>Total de Vendas</strong>: R$ {vendedorMaisVendeu.totalVendas.toFixed(2)}</p>
+        </Card>
       )}
-      <h2>Contador que Mais Gerou Nota Fiscal</h2>
+
+      <h2>Contador que mais gerou Nota Fiscal</h2>
       {contadorMaisNotas && (
-        <p>
-          Contador: {contadorMaisNotas.nomeContador}, Total de Notas: {contadorMaisNotas.totalNotas}
-        </p>
+        <Card>
+          <p><strong>Contador</strong>: {contadorMaisNotas.nomeContador}</p>
+          <p><strong>Total de Notas</strong>: {contadorMaisNotas.totalNotas}</p>
+        </Card>
       )}
-      <h2>Vendedor que Mais Fez Atendimento</h2>
+
+      <h2>Vendedor que mais fez Atendimento</h2>
       {vendedorMaisAtendimento && (
-        <p>
-          Vendedor: {vendedorMaisAtendimento.nomeVendedor}, Total de Atendimentos: {vendedorMaisAtendimento.totalAtendimentos}
-        </p>
+        <Card>
+          <p><strong>Vendedor</strong>: {vendedorMaisAtendimento.nomeVendedor}</p>
+          <p><strong>Total de Atendimentos</strong>: {vendedorMaisAtendimento.totalAtendimentos}</p>
+        </Card>
       )}
     </div>
   );

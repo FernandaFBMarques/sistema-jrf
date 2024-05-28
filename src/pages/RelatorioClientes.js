@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import 'primereact/resources/themes/saga-blue/theme.css';  
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 
 function RelatorioClientes() {
   const [clientes, setClientes] = useState([]);
@@ -21,13 +27,12 @@ function RelatorioClientes() {
     <div>
       <h1>Relatório Clientes</h1>
       <h2>Clientes que mais compraram</h2>
-      <ul>
-        {clientes.map((cliente, index) => (
-          <li key={index}>
-            {cliente.nomeLoja}: R$ {cliente.totalCompras.toFixed(2)}
-          </li>
-        ))}
-      </ul>
+      <div className="card">
+        <DataTable value={clientes} stripedRows>
+          <Column field="nomeLoja" header="NOME DA LOJA"></Column>
+          <Column field="totalCompras" header="TOTAL DE COMPRAS R$" body={(rowData) => rowData.totalCompras.toFixed(2)}></Column>
+        </DataTable>
+      </div>
     </div>
   );
 }

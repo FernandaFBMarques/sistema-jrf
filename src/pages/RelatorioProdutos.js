@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import 'primereact/resources/themes/saga-blue/theme.css';  
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 function RelatorioProdutos() {
   const [produtosMaisVendidos, setProdutosMaisVendidos] = useState([]);
@@ -24,22 +29,19 @@ function RelatorioProdutos() {
   return (
     <div>
       <h1>Relatório Produtos</h1>
+      
       <h2>Lista de Produtos Mais Vendidos</h2>
-      <ul>
-        {produtosMaisVendidos.map((produto, index) => (
-          <li key={index}>
-            Produto: {produto.nomeProduto}, Total de Vendas: {produto.totalVendas}
-          </li>
-        ))}
-      </ul>
+      <DataTable value={produtosMaisVendidos} stripedRows>
+        <Column field="nomeProduto" header="PRODUTO" />
+        <Column field="totalVendas" header="TOTAL DE VENDAS" />
+      </DataTable>
+      
       <h2>Lista de Produtos Mais Vendidos por Estado</h2>
-      <ul>
-        {produtosMaisVendidosPorEstado.map((produto, index) => (
-          <li key={index}>
-            Estado: {produto.estado}, Produto: {produto.nomeProduto}, Total de Vendas: {produto.totalVendas}
-          </li>
-        ))}
-      </ul>
+      <DataTable value={produtosMaisVendidosPorEstado} stripedRows>
+        <Column field="estado" header="ESTADO" />
+        <Column field="nomeProduto" header="PRODUTO" />
+        <Column field="totalVendas" header="TOTAL DE VENDAS" />
+      </DataTable>
     </div>
   );
 }
