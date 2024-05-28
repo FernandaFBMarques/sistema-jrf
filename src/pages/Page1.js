@@ -250,10 +250,10 @@ function Page1() {
 
       <div className="formgrid grid">
         <div className="field col-12 md:col-3">
-          <InputField id="nome" label="Nome" value={nome} onChange={(value) => setNome(value)} name="nome" showButton={false} />
+          <InputField id="cpf" label="CPF" value={cpf} onChange={(value) => setCpf(value)} name="cpf" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
-          <InputField id="cpf" label="CPF" value={cpf} onChange={(value) => setCpf(value)} name="cpf" showButton={false} />
+          <InputField id="nome" label="Nome" value={nome} onChange={(value) => setNome(value)} name="nome" showButton={false} />
         </div>
         <div className="field col-12 md:col-3">
           <InputField id="telefone" label="Telefone" value={telefone} onChange={(value) => setTelefone(value)} name="telefone" showButton={false} />
