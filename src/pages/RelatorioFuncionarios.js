@@ -23,8 +23,8 @@ function RelatorioFuncionarios() {
         const contadorMaisNotasResponse = await axios.get('http://localhost:8080/relatorios/contador-mais-notas');
         const vendedorMaisAtendimentoResponse = await axios.get('http://localhost:8080/relatorios/vendedor-mais-atendimento');
 
-        setDependentes(dependentesResponse.data);
-        setRelacionamentos(relacionamentosResponse.data);
+        setDependentes(dependentesResponse.data.filter(item => item.nomeFuncionario && item.nomeDependente));
+        setRelacionamentos(relacionamentosResponse.data.filter(item => item.nomeFuncionario && item.nomeGerente));
         setVendedorMaisVendeu(vendedorMaisVendeuResponse.data);
         setContadorMaisNotas(contadorMaisNotasResponse.data);
         setVendedorMaisAtendimento(vendedorMaisAtendimentoResponse.data);
@@ -35,6 +35,10 @@ function RelatorioFuncionarios() {
 
     fetchData();
   }, []);
+
+  const shouldShowCard = (data, fields) => {
+    return fields.every(field => data && data[field] !== null);
+  };
 
   return (
     <div>
@@ -53,7 +57,7 @@ function RelatorioFuncionarios() {
       </DataTable>
 
       <h2>Vendedor que mais vendeu</h2>
-      {vendedorMaisVendeu && (
+      {shouldShowCard(vendedorMaisVendeu, ['nomeVendedor', 'totalVendas']) && (
         <Card>
           <p><strong>Vendedor</strong>: {vendedorMaisVendeu.nomeVendedor}</p>
           <p><strong>Total de Vendas</strong>: R$ {vendedorMaisVendeu.totalVendas.toFixed(2)}</p>
@@ -61,7 +65,7 @@ function RelatorioFuncionarios() {
       )}
 
       <h2>Contador que mais gerou Nota Fiscal</h2>
-      {contadorMaisNotas && (
+      {shouldShowCard(contadorMaisNotas, ['nomeContador', 'totalNotas']) && (
         <Card>
           <p><strong>Contador</strong>: {contadorMaisNotas.nomeContador}</p>
           <p><strong>Total de Notas</strong>: {contadorMaisNotas.totalNotas}</p>
@@ -69,7 +73,7 @@ function RelatorioFuncionarios() {
       )}
 
       <h2>Vendedor que mais fez Atendimento</h2>
-      {vendedorMaisAtendimento && (
+      {shouldShowCard(vendedorMaisAtendimento, ['nomeVendedor', 'totalAtendimentos']) && (
         <Card>
           <p><strong>Vendedor</strong>: {vendedorMaisAtendimento.nomeVendedor}</p>
           <p><strong>Total de Atendimentos</strong>: {vendedorMaisAtendimento.totalAtendimentos}</p>

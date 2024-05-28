@@ -6,6 +6,21 @@ import { Card } from 'primereact/card';
 import 'primereact/resources/themes/saga-blue/theme.css';  
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import styled from 'styled-components';
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+`;
+
+const StyledCard = styled(Card)`
+  flex: 1;
+  min-width: 300px;
+  margin: 10px;
+`;
 
 function RelatorioVenda() {
   const [totalVendasSemImposto, setTotalVendasSemImposto] = useState(0);
@@ -30,27 +45,27 @@ function RelatorioVenda() {
     fetchData();
   }, []);
 
+  const nomeGerenteTemplate = (rowData) => {
+    return rowData.nomeGerente ? rowData.nomeGerente : 'Gerente';
+  };
+
   return (
     <div>
       <h1>Relatório Vendas</h1>
-      <div className="p-grid">
-        <div className="p-col-12 p-md-6">
-          <Card title="Total de vendas sem imposto">
-            <p className="p-m-0">{totalVendasSemImposto}</p>
-          </Card>
-        </div>
-        <div className="p-col-12 p-md-6">
-          <Card title="Total de vendas com imposto">
-            <p className="p-m-0">{totalVendasComImposto}</p>
-          </Card>
-        </div>
-      </div>
+      <CardContainer>
+        <StyledCard title="Total de vendas sem imposto">
+          <p className="p-m-0">{totalVendasSemImposto}</p>
+        </StyledCard>
+        <StyledCard title="Total de vendas com imposto">
+          <p className="p-m-0">{totalVendasComImposto}</p>
+        </StyledCard>
+      </CardContainer>
       <h2>Vendas por membro da equipe:</h2>
       <DataTable value={vendasPorMembro} stripedRows>
         <Column field="nomeVendedor" header="VENDEDOR" />
         <Column field="totalVendas" header="TOTAL DE VENDAS" />
         <Column field="totalImpostos" header="TOTAL DE IMPOSTOS" />
-        <Column field="nomeGerente" header="GERENTE" />
+        <Column field="nomeGerente" header="GERENTE" body={nomeGerenteTemplate} />
       </DataTable>
     </div>
   );
